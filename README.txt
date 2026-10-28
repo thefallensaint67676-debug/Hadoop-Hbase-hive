@@ -1,4 +1,4 @@
-# Apache Hadoop 3.3.6 on Windows 10/11 --- Practical Exam Setup Guide
+# Apache Hadoop 3.3.6 on Windows 10/11 -- Setup Guide
 
 This guide collects the configuration shown in the screenshots and adds
 the commands needed to start, test, and stop a local Hadoop
@@ -6,10 +6,10 @@ pseudo-distributed setup.
 
 > **Paths used in this guide**
 >
-> -   Hadoop folder: `C:\hadoop-3.3.6`
-> -   Hadoop configuration folder: `C:\hadoop-3.3.6\etc\hadoop`
-> -   Hadoop data folders: `C:\hadoop-3.3.6\data\namenode` and
->     `C:\hadoop-3.3.6\data\datanode`
+> - Hadoop folder: `C:\hadoop-3.3.6`
+> - Hadoop configuration folder: `C:\hadoop-3.3.6\etc\hadoop`
+> - Hadoop data folders: `C:\hadoop-3.3.6\data\namenode` and
+> `C:\hadoop-3.3.6\data\datanode`
 >
 > If your Hadoop folder is somewhere else, replace these paths
 > everywhere. Run commands in **Command Prompt (cmd)** unless a step
@@ -17,18 +17,18 @@ pseudo-distributed setup.
 
 ## 1. Prerequisites
 
-1.  Install a supported 64-bit JDK. Hadoop 3.3.6 is commonly used with
-    JDK 8 or 11 on Windows; use the JDK version prescribed by your
-    lab/tutorial if it differs.
-2.  Set `JAVA_HOME` to the JDK installation directory, for example:
-    `C:\Program Files\Java\jdk-11`
-3.  Download/extract Hadoop 3.3.6 so that the folder is
-    `C:\hadoop-3.3.6`.
-4.  Obtain Windows Hadoop native helper binaries (`winutils.exe`, and
-    matching Hadoop DLLs if required) built for the same Hadoop version.
-    The screenshots use the `cdarlint/winutils` GitHub repository,
-    folder `hadoop-3.3.6/bin`. Use trusted sources and avoid mixing
-    binaries from different Hadoop versions.
+1. Install a supported 64-bit JDK. Hadoop 3.3.6 is commonly used with
+ JDK 8 or 11 on Windows; use the JDK version prescribed by your
+ lab/tutorial if it differs.
+2. Set `JAVA_HOME` to the JDK installation directory, for example:
+ `C:\Program Files\Java\jdk-11`
+3. Download/extract Hadoop 3.3.6 so that the folder is
+ `C:\hadoop-3.3.6`.
+4. Obtain Windows Hadoop native helper binaries (`winutils.exe`, and
+ matching Hadoop DLLs if required) built for the same Hadoop version.
+ The screenshots use the `cdarlint/winutils` GitHub repository,
+ folder `hadoop-3.3.6/bin`. Use trusted sources and avoid mixing
+ binaries from different Hadoop versions.
 
 Check Java and Hadoop from a **new** Command Prompt after setting
 environment variables:
@@ -46,14 +46,14 @@ Variables**.
 Create or update the following variables (use the actual JDK folder on
 your PC):
 
-  -------------------------------------------------------------------------
-  Variable                            Value
-  ----------------------------------- -------------------------------------
-  `JAVA_HOME`                         Your JDK installation directory,
-                                      e.g. `C:\Program Files\Java\jdk-11`
+ -------------------------------------------------------------------------
+ Variable Value
+ ----------------------------------- -------------------------------------
+ `JAVA_HOME` Your JDK installation directory,
+ e.g. `C:\Program Files\Java\jdk-11`
 
-  `HADOOP_HOME`                       `C:\hadoop-3.3.6`
-  -------------------------------------------------------------------------
+ `HADOOP_HOME` `C:\hadoop-3.3.6`
+ -------------------------------------------------------------------------
 
 Edit the **Path** variable and add these separate entries:
 
@@ -91,11 +91,11 @@ The screenshot points to the GitHub repository
 `https://github.com/cdarlint/winutils` and its `hadoop-3.3.6/bin`
 folder.
 
-1.  Download the matching `hadoop-3.3.6/bin` files from a source you
-    trust.
-2.  Copy the required files (typically `winutils.exe` and any matching
-    Hadoop DLLs supplied with that build) into: `C:\hadoop-3.3.6\bin`
-3.  Do not replace Hadoop's Java JARs with files from another version.
+1. Download the matching `hadoop-3.3.6/bin` files from a source you
+ trust.
+2. Copy the required files (typically `winutils.exe` and any matching
+ Hadoop DLLs supplied with that build) into: `C:\hadoop-3.3.6\bin`
+3. Do not replace Hadoop's Java JARs with files from another version.
 
 Verify that the files are present:
 
@@ -135,10 +135,10 @@ Set the default filesystem to the local NameNode:
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-    <property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://localhost:9000</value>
-    </property>
+ <property>
+ <name>fs.defaultFS</name>
+ <value>hdfs://localhost:9000</value>
+ </property>
 </configuration>
 ```
 
@@ -153,20 +153,20 @@ paths:
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-    <property>
-        <name>dfs.replication</name>
-        <value>1</value>
-    </property>
+ <property>
+ <name>dfs.replication</name>
+ <value>1</value>
+ </property>
 
-    <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>file:///C:/hadoop-3.3.6/data/namenode</value>
-    </property>
+ <property>
+ <name>dfs.namenode.name.dir</name>
+ <value>file:///C:/hadoop-3.3.6/data/namenode</value>
+ </property>
 
-    <property>
-        <name>dfs.datanode.data.dir</name>
-        <value>file:///C:/hadoop-3.3.6/data/datanode</value>
-    </property>
+ <property>
+ <name>dfs.datanode.data.dir</name>
+ <value>file:///C:/hadoop-3.3.6/data/datanode</value>
+ </property>
 </configuration>
 ```
 
@@ -183,10 +183,10 @@ The screenshot sets MapReduce to use YARN:
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-    <property>
-        <name>mapreduce.framework.name</name>
-        <value>yarn</value>
-    </property>
+ <property>
+ <name>mapreduce.framework.name</name>
+ <value>yarn</value>
+ </property>
 </configuration>
 ```
 
@@ -202,26 +202,26 @@ The screenshots configure the MapReduce shuffle service:
 ``` xml
 <?xml version="1.0"?>
 <configuration>
-    <property>
-        <name>yarn.nodemanager.aux-services</name>
-        <value>mapreduce_shuffle</value>
-    </property>
+ <property>
+ <name>yarn.nodemanager.aux-services</name>
+ <value>mapreduce_shuffle</value>
+ </property>
 
-    <property>
-        <name>yarn.nodemanager.auxservices.mapreduce.shuffle.class</name>
-        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
-    </property>
+ <property>
+ <name>yarn.nodemanager.auxservices.mapreduce.shuffle.class</name>
+ <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+ </property>
 </configuration>
 ```
 
 ### XML checks
 
--   Each opening `<property>` must have a closing `</property>`.
--   Each `<name>` must have a matching `</name>`, and each `<value>` a
-    matching `</value>`.
--   Do not put properties outside the `<configuration>` element.
--   Save every file after editing.
--   The `mapreduce.framework.name` value is `yarn` (not `yarn/`).
+- Each opening `<property>` must have a closing `</property>`.
+- Each `<name>` must have a matching `</name>`, and each `<value>` a
+ matching `</value>`.
+- Do not put properties outside the `<configuration>` element.
+- Save every file after editing.
+- The `mapreduce.framework.name` value is `yarn` (not `yarn/`).
 
 ## 6. Configure `hadoop-env.cmd`
 
@@ -293,15 +293,15 @@ started and whether they started successfully.
 
 Open these addresses in a browser:
 
-  Service                   URL
-  ------------------------- -------------------------
-  HDFS NameNode UI          `http://localhost:9870`
-  YARN ResourceManager UI   `http://localhost:8088`
+ Service URL
+ ------------------------- -------------------------
+ HDFS NameNode UI `http://localhost:9870`
+ YARN ResourceManager UI `http://localhost:8088`
 
 If a page does not load, check the terminal output and logs under
 `C:\hadoop-3.3.6\logs`.
 
-## 10. Basic HDFS commands for the practical exam
+## 10. Basic HDFS commands for the setup guide
 
 Run from any Command Prompt where Hadoop is configured in `Path`.
 
@@ -356,54 +356,54 @@ manually.
 
 ### `hadoop` or `hdfs` is not recognized
 
--   Confirm `C:\hadoop-3.3.6\bin` and `C:\hadoop-3.3.6\sbin` exist.
--   Confirm both are in `Path`.
--   Open a new Command Prompt after changing environment variables.
--   Run `echo %HADOOP_HOME%` and `hadoop version`.
+- Confirm `C:\hadoop-3.3.6\bin` and `C:\hadoop-3.3.6\sbin` exist.
+- Confirm both are in `Path`.
+- Open a new Command Prompt after changing environment variables.
+- Run `echo %HADOOP_HOME%` and `hadoop version`.
 
 ### `JAVA_HOME` is not set or Java cannot be found
 
--   Check `java -version` and `echo %JAVA_HOME%`.
--   Set `JAVA_HOME` to the JDK root folder, not its `bin` subfolder.
--   Check `C:\hadoop-3.3.6\etc\hadoop\hadoop-env.cmd`.
--   Use a JDK version compatible with the Hadoop build used by your lab.
+- Check `java -version` and `echo %JAVA_HOME%`.
+- Set `JAVA_HOME` to the JDK root folder, not its `bin` subfolder.
+- Check `C:\hadoop-3.3.6\etc\hadoop\hadoop-env.cmd`.
+- Use a JDK version compatible with the Hadoop build used by your lab.
 
 ### `winutils.exe` or native Hadoop binary error
 
--   Confirm the Windows helper binaries are in `C:\hadoop-3.3.6\bin`.
--   Make sure the binaries match Hadoop 3.3.6 and your Windows
-    architecture.
--   Do not download arbitrary DLLs from unknown sites.
+- Confirm the Windows helper binaries are in `C:\hadoop-3.3.6\bin`.
+- Make sure the binaries match Hadoop 3.3.6 and your Windows
+ architecture.
+- Do not download arbitrary DLLs from unknown sites.
 
 ### NameNode format fails or Hadoop cannot write to data folders
 
--   Check the XML file paths and ensure `C:\hadoop-3.3.6\data\namenode`
-    and `...\datanode` exist.
--   Check folder permissions.
--   Read the exact error and logs before trying to format again.
--   Do not delete the NameNode data directory or re-format an existing
-    setup unless you intend to reset HDFS.
+- Check the XML file paths and ensure `C:\hadoop-3.3.6\data\namenode`
+ and `...\datanode` exist.
+- Check folder permissions.
+- Read the exact error and logs before trying to format again.
+- Do not delete the NameNode data directory or re-format an existing
+ setup unless you intend to reset HDFS.
 
 ### Port already in use
 
--   Another Hadoop instance may still be running. Check `jps` and close
-    it cleanly with the stop scripts.
--   Check whether another program is using ports `9000`, `9870`, or
-    `8088`.
+- Another Hadoop instance may still be running. Check `jps` and close
+ it cleanly with the stop scripts.
+- Check whether another program is using ports `9000`, `9870`, or
+ `8088`.
 
 ### NameNode UI opens but HDFS commands fail
 
--   Confirm `start-dfs.cmd` started successfully.
--   Confirm `fs.defaultFS` is `hdfs://localhost:9000`.
--   Check the NameNode/DataNode terminal output and logs.
+- Confirm `start-dfs.cmd` started successfully.
+- Confirm `fs.defaultFS` is `hdfs://localhost:9000`.
+- Check the NameNode/DataNode terminal output and logs.
 
 ### YARN services do not start
 
--   Confirm `mapred-site.xml` has `mapreduce.framework.name` set to
-    `yarn`.
--   Confirm `yarn-site.xml` contains the two properties shown in Step
-    5.4.
--   Start HDFS first, then run `start-yarn.cmd`.
+- Confirm `mapred-site.xml` has `mapreduce.framework.name` set to
+ `yarn`.
+- Confirm `yarn-site.xml` contains the two properties shown in Step
+ 5.4.
+- Start HDFS first, then run `start-yarn.cmd`.
 
 ## 13. Quick practical-exam sequence
 
@@ -433,18 +433,18 @@ one-time NameNode format before starting services.
 
 ## Reference from the screenshots
 
--   Hadoop installation path shown: `C:\hadoop-3.3.6`
--   Configuration path shown: `C:\hadoop-3.3.6\etc\hadoop`
--   Windows helper binaries repository shown:
-    `https://github.com/cdarlint/winutils`
--   HDFS NameNode format command shown: `hdfs namenode -format`
--   Start script warning shown: `start-all.cmd` is deprecated; use
-    `start-dfs.cmd` and `start-yarn.cmd`.
+- Hadoop installation path shown: `C:\hadoop-3.3.6`
+- Configuration path shown: `C:\hadoop-3.3.6\etc\hadoop`
+- Windows helper binaries repository shown:
+ `https://github.com/cdarlint/winutils`
+- HDFS NameNode format command shown: `hdfs namenode -format`
+- Start script warning shown: `start-all.cmd` is deprecated; use
+ `start-dfs.cmd` and `start-yarn.cmd`.
 
 
 ---
 
-# 14. Apache HBase 1.4.9 on Windows — Practical Exam Setup
+# 14. Apache HBase 1.4.9 on Windows Setup
 
 This section adds the HBase setup shown in the additional screenshots. It assumes Hadoop is installed at `C:\hadoop-3.3.6` and HBase will be extracted to `C:\hbase`.
 
@@ -458,12 +458,12 @@ The screenshots use HBase 1.4.9:
 
 1. Download the appropriate HBase 1.4.9 binary archive from the Apache archive.
 2. Extract it so the installation directory is:
-   `C:\hbase`
+ `C:\hbase`
 3. Confirm that these paths exist:
-   - `C:\hbase\bin`
-   - `C:\hbase\conf`
-   - `C:\hbase\conf\hbase-site.xml`
-   - `C:\hbase\conf\hbase-env.cmd`
+ - `C:\hbase\bin`
+ - `C:\hbase\conf`
+ - `C:\hbase\conf\hbase-site.xml`
+ - `C:\hbase\conf\hbase-env.cmd`
 
 ## 14.2 Set HBase environment variables
 
@@ -505,18 +505,18 @@ Keep the existing XML header and `<configuration>` wrapper, then add the propert
 
 ```xml
 <property>
-    <name>hbase.rootdir</name>
-    <value>hdfs://localhost:9000/hbase</value>
+ <name>hbase.rootdir</name>
+ <value>hdfs://localhost:9000/hbase</value>
 </property>
 
 <property>
-    <name>hbase.zookeeper.property.dataDir</name>
-    <value>C:\zookeeper</value>
+ <name>hbase.zookeeper.property.dataDir</name>
+ <value>C:\zookeeper</value>
 </property>
 
 <property>
-    <name>hbase.cluster.distributed</name>
-    <value>false</value>
+ <name>hbase.cluster.distributed</name>
+ <value>false</value>
 </property>
 ```
 
@@ -531,8 +531,8 @@ For a **standalone/local HBase setup** matching `hbase.cluster.distributed=false
 
 ```xml
 <property>
-    <name>hbase.rootdir</name>
-    <value>file:///C:/Hfile</value>
+ <name>hbase.rootdir</name>
+ <value>file:///C:/Hfile</value>
 </property>
 ```
 
@@ -688,11 +688,11 @@ Stop HBase and Hadoop using the commands in Sections 14.8 and 11.
 
 ---
 
-# 15. Apache Hive 2.1.0 on Windows — Practical Exam Setup
+# 15. Apache Hive 2.1.0 on Windows Setup
 
 This section adds the Hive setup shown in the screenshots. The screenshot output confirms a Hive 2.1.0 shell connected successfully and ran `create database test;`.
 
-> **Compatibility warning:** Hive 2.1.0 is an old release. It may have compatibility issues with newer Java versions and Hadoop 3.3.6. For your practical exam, use the exact versions provided by your lab instructor. The configuration below documents the supplied setup; if it fails, version compatibility is a key thing to check.
+> **Compatibility warning:** Hive 2.1.0 is an old release. It may have compatibility issues with newer Java versions and Hadoop 3.3.6. For your setup guide, use the exact versions provided by your lab instructor. The configuration below documents the supplied setup; if it fails, version compatibility is a key thing to check.
 
 ## 15.1 Expected installation paths
 
@@ -768,34 +768,34 @@ Use the following valid XML configuration based on the code supplied:
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
-    <property>
-        <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:derby://localhost:1527/metastore_db;create=true</value>
-        <description>JDBC connect string for a JDBC metastore</description>
-    </property>
+ <property>
+ <name>javax.jdo.option.ConnectionURL</name>
+ <value>jdbc:derby://localhost:1527/metastore_db;create=true</value>
+ <description>JDBC connect string for a JDBC metastore</description>
+ </property>
 
-    <property>
-        <name>javax.jdo.option.ConnectionDriverName</name>
-        <value>org.apache.derby.jdbc.ClientDriver</value>
-        <description>Driver class name for a JDBC metastore</description>
-    </property>
+ <property>
+ <name>javax.jdo.option.ConnectionDriverName</name>
+ <value>org.apache.derby.jdbc.ClientDriver</value>
+ <description>Driver class name for a JDBC metastore</description>
+ </property>
 
-    <property>
-        <name>hive.server2.enable.impersonation</name>
-        <value>true</value>
-        <description>Enable user impersonation for HiveServer2</description>
-    </property>
+ <property>
+ <name>hive.server2.enable.impersonation</name>
+ <value>true</value>
+ <description>Enable user impersonation for HiveServer2</description>
+ </property>
 
-    <property>
-        <name>hive.server2.authentication</name>
-        <value>NONE</value>
-        <description>Client authentication mode</description>
-    </property>
+ <property>
+ <name>hive.server2.authentication</name>
+ <value>NONE</value>
+ <description>Client authentication mode</description>
+ </property>
 
-    <property>
-        <name>datanucleus.autoCreateTables</name>
-        <value>true</value>
-    </property>
+ <property>
+ <name>datanucleus.autoCreateTables</name>
+ <value>true</value>
+ </property>
 </configuration>
 ```
 
@@ -852,8 +852,8 @@ Create a table and insert sample data:
 
 ```sql
 create table student (
-    id int,
-    name string
+ id int,
+ name string
 )
 row format delimited
 fields terminated by ',';
